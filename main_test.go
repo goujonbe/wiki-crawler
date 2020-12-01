@@ -30,3 +30,12 @@ func TestGetAllLinks(t *testing.T) {
 		t.Errorf("got %q want %q", got, want)
 	}
 }
+
+func TestRemoveDuplicates(t *testing.T) {
+	testInput := []string{"a", "a", "b"}
+	got := removeDuplicates(testInput)
+	want := []string{"a", "b"}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %q want %q", got, want)
+	}
+}
