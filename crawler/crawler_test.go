@@ -1,4 +1,4 @@
-package main
+package crawler
 
 import (
 	"reflect"
@@ -24,7 +24,7 @@ func TestGetAllLinks(t *testing.T) {
 		</body>
 		</html>
 	`)
-	got := getAllLinks(fakeReader)
+	got := GetAllLinks(fakeReader)
 	want := []string{"/wiki/test.com", "https://fr.wikipedia.com/test"}
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got %q want %q", got, want)
@@ -33,7 +33,7 @@ func TestGetAllLinks(t *testing.T) {
 
 func TestRemoveDuplicates(t *testing.T) {
 	testInput := []string{"a", "a", "b"}
-	got := removeDuplicates(testInput)
+	got := RemoveDuplicates(testInput)
 	want := []string{"a", "b"}
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got %q want %q", got, want)
