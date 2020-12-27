@@ -39,3 +39,12 @@ func TestRemoveDuplicates(t *testing.T) {
 		t.Errorf("got %q want %q", got, want)
 	}
 }
+
+func TestKeepWikiUrls(t *testing.T) {
+	testInput := []string{"/wiki/test", "https://test.com", "https://en.wikipedia.org/wiki/sth"}
+	got := KeepWikiUrls(testInput)
+	want := []string{"/wiki/test"}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %q want %q", got, want)
+	}
+}

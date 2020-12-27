@@ -3,6 +3,7 @@ package crawler
 import (
 	"io"
 	"sort"
+	"strings"
 
 	"golang.org/x/net/html"
 )
@@ -43,4 +44,16 @@ func RemoveDuplicates(s []string) []string {
 		s[j] = s[i]
 	}
 	return s[:j+1]
+}
+
+// keep URLs that start with /wiki/ and remove the others
+// that can link to external websites (in particular in the ref section)
+func KeepWikiUrls(allUrls []string) []string {
+	wikiUrls := []string{}
+	for _, url := range allUrls {
+		if strings.HasPrefix(url, "/wiki/") {
+			wikiUrls = append(wikiUrls, url)
+		}
+	}
+	return wikiUrls
 }

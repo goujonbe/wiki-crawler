@@ -15,7 +15,9 @@ func main() {
 	}
 	defer resp.Body.Close()
 	allLinks := c.GetAllLinks(resp.Body)
-	for _, link := range c.RemoveDuplicates(allLinks) {
+	uniqueLinks := c.RemoveDuplicates(allLinks)
+	finalUrls := c.KeepWikiUrls(uniqueLinks)
+	for _, link := range finalUrls {
 		fmt.Println(link)
 	}
 }
