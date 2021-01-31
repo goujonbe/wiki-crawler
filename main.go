@@ -14,10 +14,7 @@ func main() {
 		fmt.Println(err)
 	}
 	defer resp.Body.Close()
-	allLinks := c.GetAllLinks(resp.Body)
-	uniqueLinks := c.RemoveDuplicates(allLinks)
-	finalUrls := c.KeepWikiUrls(uniqueLinks)
-	for _, link := range finalUrls {
-		fmt.Println(link)
-	}
+	currentPage := c.GetWikipediaPageSummary(resp.Body)
+	fmt.Println(currentPage.Title)
+	fmt.Println(currentPage.Links[:5])
 }

@@ -16,35 +16,23 @@ func TestGetAllLinks(t *testing.T) {
 		<img src="img_la.jpg" alt="LA" style="width:100%">
 		
 		<div>
-		<h1>This is a Heading</h1>
+		<h1> Heading </h1>
 		<p>This is a paragraph.</p>
 		<a href="/wiki/test.com">my test</a>
+		<a href="/wiki/test.com">my test</a>
+		<a href="/wiki/anothertest.com">my test</a>
+		<a href="https://test.com">bad</a>
 		</div>
 		<a href="https://fr.wikipedia.com/test">my second test</a>
 		</body>
 		</html>
 	`)
-	got := GetAllLinks(fakeReader)
-	want := []string{"/wiki/test.com", "https://fr.wikipedia.com/test"}
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got %q want %q", got, want)
+	got := GetWikipediaPageSummary(fakeReader)
+	if got.Title != "Heading" {
+		t.Errorf("got %q want %q", got.Title, "Heading")
 	}
-}
-
-func TestRemoveDuplicates(t *testing.T) {
-	testInput := []string{"a", "a", "b"}
-	got := RemoveDuplicates(testInput)
-	want := []string{"a", "b"}
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got %q want %q", got, want)
-	}
-}
-
-func TestKeepWikiUrls(t *testing.T) {
-	testInput := []string{"/wiki/test", "https://test.com", "https://en.wikipedia.org/wiki/sth"}
-	got := KeepWikiUrls(testInput)
-	want := []string{"/wiki/test"}
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got %q want %q", got, want)
+	want := []string{"/wiki/anothertest.com", "/wiki/test.com"}
+	if !reflect.DeepEqual(got.Links, want) {
+		t.Errorf("got %q want %q", got.Links, want)
 	}
 }
